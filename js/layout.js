@@ -25,7 +25,7 @@ export function mountLayout() {
     <div class="drawer-head"><h2>Mon panier</h2><button class="close" id="close-cart" aria-label="Fermer">×</button></div>
     <div id="cart-items"></div>
     <div class="drawer-foot"><p class="line"><span>Articles</span><strong id="cart-total">0 FCFA</strong></p>
-      <p class="hint">Livraison : ${CONFIG.livraison} (à confirmer sur WhatsApp). Paiement à la livraison.</p>
+      <p class="hint">Livraison : ${CONFIG.livraison}. Paiement à la livraison.</p>
       <button class="button button-primary full" id="checkout-button">Commander</button></div>
   </aside>
   <div class="overlay" id="checkout-modal" hidden><div class="modal"><button class="close" data-close aria-label="Fermer">×</button><div id="checkout-content"></div></div></div>`);

@@ -6,7 +6,8 @@ export const CONFIG = {
     { nom: "Associée 1", whatsapp: "+225 05 45 15 31 93" },
     { nom: "Associée 2", whatsapp: "+225 07 05 01 16 07" }
   ],
-  livraison: "1 500 à 2 000 FCFA selon votre commune",
+  fraisLivraison: 1000, // FCFA, partout à Abidjan
+  livraison: "1 000 FCFA partout à Abidjan, via Zoliv Express",
   paiement: "Paiement à la livraison (espèces)",
   communes: ["Abobo","Adjamé","Anyama","Attécoubé","Bingerville","Cocody","Koumassi","Marcory","Plateau","Port-Bouët","Songon","Treichville","Yopougon"],
   categories: { tous: "Tous", accessoires: "Accessoires", parfums: "Parfums", vetements: "Vêtements", autres: "Autres" }

@@ -6,7 +6,9 @@ import { getCart, cartTotal, cartSummary, clearCart } from "./cart.js";
 const form = () => `
   <p class="eyebrow">Dernière étape</p><h2>Finaliser ma commande</h2>
   <div class="recap"><pre>${esc(cartSummary())}</pre><p class="line"><span>Articles</span><strong>${money(cartTotal())}</strong></p>
-  <p class="hint">Livraison : ${CONFIG.livraison}, confirmée sur WhatsApp. ${CONFIG.paiement}.</p></div>
+  <p class="line"><span>Livraison (Zoliv Express)</span><strong>${money(CONFIG.fraisLivraison)}</strong></p>
+  <p class="line grand"><span>Total à payer</span><strong>${money(cartTotal() + CONFIG.fraisLivraison)}</strong></p>
+  <p class="hint">Livraison à ${CONFIG.livraison.replace(/^1 000 FCFA /, "")}. ${CONFIG.paiement}.</p></div>
   <form id="order-form">
     <p hidden><input name="bot-field"></p>
     <label>Nom complet *<input name="nom" required autocomplete="name"></label>
@@ -41,7 +43,7 @@ async function submit(e) {
   /* 1) Google Sheet + e-mails (les clés correspondent à google-apps-script.js) */
   fetch(CONFIG.endpoint, { method: "POST", mode: "no-cors", keepalive: true, body: JSON.stringify({
     orderId: id, nom: d.nom, telephone: d.telephone, email: d.email || "", commune: d.commune, adresse: d.adresse,
-    delivery_mode: "🚚 Zoliv Express", delivery_fee: "1 500 à 2 000 FCFA (à confirmer)", paiement: CONFIG.paiement,
+    delivery_mode: "🚚 Zoliv Express", delivery_fee: money(CONFIG.fraisLivraison), paiement: CONFIG.paiement,
     total: money(total), recapitulatif: recap, note })}).catch(() => {});
 
   /* 2) Netlify Forms (notification e-mail Netlify) */
@@ -50,7 +52,7 @@ async function submit(e) {
     associee: person.nom, numero_commande: id, recapitulatif_commande: recap, total: money(total), mode_paiement: CONFIG.paiement, note_livraison: CONFIG.livraison }).toString() }).catch(() => {});
 
   /* 3) Redirection vers la conversation WhatsApp choisie */
-  const msg = `Bonjour ${person.nom} ! Je viens de passer la commande ${id} sur ${CONFIG.nom}.\n\n${recap}\n\nTotal articles : ${money(total)}\nNom : ${d.nom}\nCommune : ${d.commune}\nAdresse : ${d.adresse}\nPaiement : à la livraison.\n\nMerci de me confirmer le montant exact de la livraison 🌸`;
+  const msg = `Bonjour ${person.nom} ! Je viens de passer la commande ${id} sur ${CONFIG.nom}.\n\n${recap}\n\nTotal articles : ${money(total)}\nLivraison Zoliv Express : ${money(CONFIG.fraisLivraison)}\nTotal à payer : ${money(total + CONFIG.fraisLivraison)}\nNom : ${d.nom}\nCommune : ${d.commune}\nAdresse : ${d.adresse}\nPaiement : à la livraison.\n\nMerci de me confirmer la commande 🌸`;
   const url = waUrl(person, msg);
   clearCart();
   $("#checkout-content").innerHTML = `<div class="success"><div class="ok">✓</div><h2>Commande ${id} enregistrée</h2>
