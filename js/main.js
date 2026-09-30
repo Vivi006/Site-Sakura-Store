@@ -13,5 +13,3 @@ const people = $("#people"); if (people) people.innerHTML = contactCards();
 await loadProducts();
 reconcile(products);
 if ($("#product-grid")) initShop();
-const featured = $("#featured");
-if (featured) renderGrid(featured, (products.filter((p) => p.nouveau).length >= 4 ? products.filter((p) => p.nouveau) : products).slice(0, 4));

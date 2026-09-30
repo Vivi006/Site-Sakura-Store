@@ -33,7 +33,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%}button,input,select,text
 .people{display:grid;gap:1rem;margin-top:1.5rem;max-width:760px;margin-inline:auto}.person{background:#fff;border-radius:24px;padding:1.5rem;text-align:center;box-shadow:var(--ombre)}.petal-ico{font-size:2rem}
 
 /* ===== 4. Boutique & produits ===== */
-.page-head{text-align:center;padding:3rem 6% 2rem;color:#fff;background:linear-gradient(135deg,var(--nuit),var(--bordeaux))}.page-head h1{font-size:clamp(3rem,10vw,5rem);color:var(--rose-clair);text-shadow:0 0 20px var(--rose)}
+.page-head{padding:3rem 6% 2rem;color:#fff;background:linear-gradient(135deg,var(--nuit),var(--bordeaux))}.page-head h1{font-size:clamp(3rem,10vw,5rem);color:var(--rose-clair);text-shadow:0 0 20px var(--rose)}
 .toolbar{display:flex;flex-direction:column;gap:.7rem}.toolbar input,.toolbar select{border:2px solid var(--rose-clair);border-radius:999px;padding:.65rem 1rem;background:#fff}
 .pills{display:flex;gap:.5rem;overflow:auto;padding:1rem 0}.pills button{border:2px solid var(--rose-clair);background:#fff;border-radius:999px;padding:.45rem 1rem;color:var(--bordeaux);white-space:nowrap}.pills .on{background:var(--framboise);border-color:var(--framboise);color:#fff}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin:1.5rem 0}
@@ -66,3 +66,18 @@ fieldset{border:2px solid var(--rose-clair);border-radius:14px;margin:1.2rem 0 0
 @media(min-width:700px){.site-header nav{display:flex}.hero{grid-template-columns:1.2fr .8fr;padding-inline:9%}.tiles{grid-template-columns:repeat(4,1fr)}.grid{grid-template-columns:repeat(3,1fr)}.steps{grid-template-columns:repeat(3,1fr)}.people{grid-template-columns:1fr 1fr}.toolbar{flex-direction:row}.toolbar input{flex:1}.toolbar select{width:220px}.detail{grid-template-columns:1fr 1fr}.detail>img{height:100%}}
 @media(min-width:1000px){.grid{grid-template-columns:repeat(4,1fr)}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* Visuel neutre quand un produit n'a pas de photo */
+.ph{display:grid;place-items:center;width:100%;height:100%;min-height:190px;font-size:3rem;background:linear-gradient(135deg,var(--rose-clair),var(--creme))}
+.detail>.ph{height:260px;border-radius:120px 120px 18px 18px}@media(min-width:700px){.detail>.ph{height:100%;min-height:260px}}
+/* ===== 7. Accueil épuré + page boutique ===== */
+:focus-visible{outline:3px solid var(--rose);outline-offset:2px}a,button{-webkit-tap-highlight-color:rgba(238,125,150,.3)}::selection{background:var(--rose-clair);color:var(--nuit)}
+.cta-band{position:relative;text-align:center;color:#fff;padding:4.5rem 6%;background:radial-gradient(circle at 20% 30%,rgba(238,125,150,.35),transparent 50%),linear-gradient(135deg,var(--bordeaux),var(--framboise))}
+.cta-band h2{font-size:clamp(2.6rem,8vw,4.4rem);color:var(--rose-clair);text-shadow:0 0 22px var(--rose)}.cta-band p{color:#fbe3e7}.button.big{padding:1rem 2.2rem;font-size:1.05rem;margin-top:.6rem}
+.page-head{position:relative;overflow:hidden;padding:2.5rem 6% 2.8rem;background:radial-gradient(circle at 80% 20%,rgba(200,23,74,.5),transparent 55%),var(--nuit)}
+.page-head p:not(.eyebrow){color:#f6d9de;margin:.2rem 0 0}
+.back{display:inline-block;margin-bottom:1rem;padding:.45rem 1.1rem;border:2px solid var(--rose-clair);border-radius:999px;color:var(--rose-clair);font-weight:600;font-size:.85rem;transition:.2s}.back:hover{background:var(--rose-clair);color:var(--bordeaux)}
+.shop-bar{position:sticky;top:58px;z-index:5;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);padding:.8rem 0 .2rem;border-bottom:1px solid var(--rose-clair)}
+.shop .grid{margin-top:1rem}.card{transition:transform .2s,box-shadow .2s}.card:hover{transform:translateY(-5px);box-shadow:0 18px 38px rgba(139,30,32,.22)}
+/* ===== 8. Correctif : plus de texte bleu (boutons natifs) ===== */
+button{color:inherit}
+.card-open{color:var(--nuit)}.card h3{color:var(--bordeaux);font-weight:600}.card-open:hover h3{color:var(--framboise)}
