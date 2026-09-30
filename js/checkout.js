@@ -7,8 +7,7 @@ const form = () => `
   <p class="eyebrow">Dernière étape</p><h2>Finaliser ma commande</h2>
   <div class="recap"><pre>${esc(cartSummary())}</pre><p class="line"><span>Articles</span><strong>${money(cartTotal())}</strong></p>
   <p class="line"><span>Livraison (Zoliv Express)</span><strong>${money(CONFIG.fraisLivraison)}</strong></p>
-  <p class="line grand"><span>Total à payer</span><strong>${money(cartTotal() + CONFIG.fraisLivraison)}</strong></p>
-  <p class="hint">Livraison à ${CONFIG.livraison.replace(/^1 000 FCFA /, "")}. ${CONFIG.paiement}.</p></div>
+  <p class="line grand"><span>Total à payer</span><strong>${money(cartTotal() + CONFIG.fraisLivraison)}</strong></p></div>
   <form id="order-form">
     <p hidden><input name="bot-field"></p>
     <label>Nom complet *<input name="nom" required autocomplete="name"></label>
@@ -19,7 +18,7 @@ const form = () => `
     <label>Note (facultatif)<textarea name="note" rows="2"></textarea></label>
     <fieldset><legend>Finaliser ma commande sur WhatsApp avec *</legend><div class="choices">
       ${CONFIG.associees.map((p, i) => `<label class="choice"><input type="radio" name="associee" value="${i}" ${i === 0 ? "checked" : ""}><span>💬 ${p.nom}</span></label>`).join("")}</div></fieldset>
-    <p class="hint">💵 Paiement à la livraison uniquement. Ne partage jamais de code PIN ou de carte bancaire.</p>
+    <p class="hint">💵 Paiement à la livraison uniquement.</p>
     <button class="button button-primary full" id="submit-order" type="submit">Envoyer ma commande</button>
   </form>`;
 

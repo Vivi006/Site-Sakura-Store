@@ -14,7 +14,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%}button,input,select,text
 /* ===== 2. En-tête & pied de page ===== */
 .site-header{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.6rem 6%;background:var(--nuit);color:#fff;border-bottom:2px solid var(--framboise)}
 .brand{display:flex;align-items:center;gap:.6rem;font-family:"Great Vibes",cursive;font-size:1.9rem;text-shadow:0 0 12px var(--rose)}.brand img,.site-footer img{width:42px;height:42px;border-radius:50%;border:2px solid var(--rose-clair)}
-.site-header nav{display:none;gap:1.6rem;font-weight:500}.site-header nav a:hover{color:var(--rose)}
+.site-header nav{display:flex;gap:1.3rem;font-weight:500}.site-header nav a:hover{color:var(--rose)}
 .cart-button{background:var(--rose-clair);border:0;border-radius:999px;padding:.5rem .9rem;color:var(--bordeaux)}.cart-button b{background:var(--framboise);color:#fff;border-radius:50%;display:inline-block;min-width:22px;text-align:center;font-size:.75rem}
 .site-footer{background:var(--nuit);color:var(--rose-clair);text-align:center;padding:2.5rem 6%}.site-footer strong{display:block;font-size:2.2rem;color:#fff}.site-footer a{text-decoration:underline}
 .floating-wa{position:fixed;right:16px;bottom:16px;width:54px;height:54px;border-radius:50%;background:#25d366;border:3px solid #fff;display:grid;place-items:center;font-size:1.5rem;box-shadow:var(--ombre);z-index:8}
@@ -81,3 +81,8 @@ fieldset{border:2px solid var(--rose-clair);border-radius:14px;margin:1.2rem 0 0
 /* ===== 8. Correctif : plus de texte bleu (boutons natifs) ===== */
 button{color:inherit}
 .card-open{color:var(--nuit)}.card h3{color:var(--bordeaux);font-weight:600}.card-open:hover h3{color:var(--framboise)}
+.recap .grand{margin-top:.3rem;padding-top:.5rem;border-top:1px dashed var(--rose)}.recap .grand strong{font-size:1.25rem;color:var(--framboise)}
+
+/* Onglets : page active + affichage sur téléphone */
+.site-header nav a{padding:.2rem 0;border-bottom:2px solid transparent}.site-header nav a.on{color:var(--rose-clair);border-bottom-color:var(--rose)}
+@media(max-width:520px){.brand img{display:none}.brand{font-size:1.55rem}.site-header{padding:.6rem 4%;gap:.5rem}.site-header nav{gap:.8rem;font-size:.8rem}}

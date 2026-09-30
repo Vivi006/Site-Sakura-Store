@@ -6,20 +6,16 @@ const logo = "images/logo-sakura.png";
 const hello = (p) => waUrl(p, `Bonjour ${p.nom}, j'aimerais avoir un renseignement sur Sakura Store.`);
 
 export function mountLayout() {
+  const page = location.pathname.endsWith("boutique.html") ? "boutique" : "accueil";
+  const tab = (id, href, label) => `<a href="${href}"${page === id ? ' class="on"' : ""}>${label}</a>`;
   document.body.insertAdjacentHTML("afterbegin", `
   <header class="site-header">
     <a class="brand" href="index.html"><img src="${logo}" alt="Logo ${CONFIG.nom}"><span>${CONFIG.nom}</span></a>
-    <nav aria-label="Navigation"><a href="index.html">Accueil</a><a href="boutique.html">Boutique</a><a href="index.html#commander">Commander</a><a href="index.html#contact">Contact</a></nav>
+    <nav aria-label="Navigation">${tab("accueil", "index.html", "Accueil")}${tab("boutique", "boutique.html", "Boutique")}<a href="index.html#contact">Contact</a></nav>
     <button class="cart-button" id="open-cart" aria-label="Ouvrir le panier">🛍️ <b id="cart-count">0</b></button>
   </header>`);
   document.body.insertAdjacentHTML("beforeend", `
-  <footer class="site-footer">
-    <img src="${logo}" alt=""><strong class="script">${CONFIG.nom}</strong>
-    <p>Accessoires, parfums et mode · livraison à Abidjan 🌸</p>
-    <p>${CONFIG.associees.map((p) => `<a href="${hello(p)}" target="_blank" rel="noopener">💬 ${p.nom}</a>`).join(" · ")}</p>
-    <small>© ${new Date().getFullYear()} ${CONFIG.nom}</small>
-  </footer>
-  <a class="floating-wa" href="${hello(CONFIG.associees[0])}" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+  <footer class="site-footer"><small>© ${new Date().getFullYear()} ${CONFIG.nom}</small></footer>
   <div class="overlay" id="product-modal" hidden><div class="modal"><button class="close" data-close aria-label="Fermer">×</button><div id="modal-content"></div></div></div>
   <aside class="drawer" id="cart-drawer" aria-hidden="true">
     <div class="drawer-head"><h2>Mon panier</h2><button class="close" id="close-cart" aria-label="Fermer">×</button></div>
