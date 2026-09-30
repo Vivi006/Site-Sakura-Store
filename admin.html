@@ -18,11 +18,12 @@
 </head>
 <body>
   <main class="admin">
-    <a href="./index.html">← Retour à la boutique</a>
+    <a href="./boutique.html">← Retour à la boutique</a>
     <h1>Gestion des produits</h1>
     <p>Cette page utilise l'authentification du serveur Apps Script. Le mot de passe n'est jamais stocké dans le navigateur.</p>
     <section id="login-panel" class="panel">
-      <form id="login-form"><label>Mot de passe administrateur<input id="password" type="password" required autocomplete="current-password"></label>
+      <form id="login-form"><label>Mot de passe administrateur<input id="password" type="password" required autocomplete="current-password" autocapitalize="off" autocorrect="off" spellcheck="false"></label>
+        <label style="display:flex;align-items:center;gap:8px;font-weight:400;margin:8px 0"><input type="checkbox" id="show-pw" style="width:auto"> Afficher le mot de passe</label>
         <button class="button button-primary" type="submit">Se connecter</button><p id="login-error" class="error"></p>
       </form>
     </section>
@@ -50,16 +51,16 @@
     const ENDPOINT = "https://script.google.com/macros/s/AKfycbzcmKZ0jxH8IHyIMWiJLN6KVdCQ-u1AGQpTSqmQKFMswaH3JJsPbUrAbRxfxw8l3MAm4A/exec";
     // Remplacez ces deux placeholders par les valeurs de Cloudinary (aucune clé secrète ici).
     const CLOUDINARY_CLOUD_NAME = "hzprzsvw";
-    const CLOUDINARY_UPLOAD_PRESET = "nana_store_images";
+    const CLOUDINARY_UPLOAD_PRESET = "sakura_store_images";
     const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
     const state = {token: sessionStorage.getItem("sakura-admin-token") || "", products: [], images: [], editing: null};
     const $ = (s) => document.querySelector(s);
     async function call(action, extra = {}) {
-      const response = await fetch(ENDPOINT, {method:"POST", body:JSON.stringify({action, token:state.token, ...extra})});
-      const data = await response.json(); if (!data.ok) throw new Error(data.error || "Erreur serveur"); return data;
+      let data; try { const response = await fetch(ENDPOINT, {method:"POST", body:JSON.stringify({action, token:state.token, ...extra})}); data = await response.json(); } catch(err) { throw new Error("Impossible de joindre le serveur. Vérifiez votre connexion internet, puis réessayez."); }
+       if (!data.ok) throw new Error(data.error || "Erreur serveur"); return data;
     }
     function showAdmin() { $("#login-panel").classList.add("hidden"); $("#admin-panel").classList.remove("hidden"); load(); }
-    async function login(event) { event.preventDefault(); $("#login-error").textContent=""; try { const data=await call("login",{password:$("#password").value}); state.token=data.token; sessionStorage.setItem("sakura-admin-token",state.token); showAdmin(); } catch(e) { $("#login-error").textContent=e.message; } }
+    async function login(event) { event.preventDefault(); $("#login-error").textContent=""; try { const data=await call("login",{password:$("#password").value.trim()}); state.token=data.token; sessionStorage.setItem("sakura-admin-token",state.token); showAdmin(); } catch(e) { $("#login-error").textContent=e.message; } }
     async function load() { try { const data=await call("list"); state.products=data.products; render(); renderImages(); } catch(e) { if(e.message.includes("Session")) logout(); else alert(e.message); } }
     function renderImages() {
       const urls = [...new Set([...state.products.map(p=>p.image).filter(Boolean), ...state.images.map(image=>image.url)])];
@@ -89,7 +90,7 @@
     async function save(event) { event.preventDefault(); const f=new FormData(event.target), product=Object.fromEntries(f.entries()); product.id=state.editing||""; product.prix=Number(product.prix); product.stock=Number(product.stock); product.nouveau=f.get("nouveau")==="on"; try { await call("save",{product}); state.editing=null; event.target.classList.add("hidden"); await load(); } catch(e) { $("#form-error").textContent=e.message; } }
     async function remove(id) { if(!confirm("Supprimer ce produit ?"))return; try { await call("delete",{id}); await load(); } catch(e) { alert(e.message); } }
     function logout() { sessionStorage.removeItem("sakura-admin-token"); state.token=""; $("#admin-panel").classList.add("hidden"); $("#login-panel").classList.remove("hidden"); }
-    $("#login-form").onsubmit=login; $("#product-form").onsubmit=save; $("#new-product").onclick=()=>{state.editing=null;fill();$("#form-title").textContent="Nouveau produit";$("#product-form").classList.remove("hidden")}; $("#cancel").onclick=()=>$("#product-form").classList.add("hidden"); $("#logout").onclick=logout; $("#upload-image").onclick=uploadImage;
+    $("#show-pw").onchange=e=>{$("#password").type=e.target.checked?"text":"password"}; $("#login-form").onsubmit=login; $("#product-form").onsubmit=save; $("#new-product").onclick=()=>{state.editing=null;fill();$("#form-title").textContent="Nouveau produit";$("#product-form").classList.remove("hidden")}; $("#cancel").onclick=()=>$("#product-form").classList.add("hidden"); $("#logout").onclick=logout; $("#upload-image").onclick=uploadImage;
     if(state.token) showAdmin();
   </script>
 </body>
