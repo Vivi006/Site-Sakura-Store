@@ -1,0 +1,14 @@
+<!doctype html><html lang="fr"><head><title>Boutique | Sakura Store</title>
+<meta name="description" content="La boutique Sakura Store : accessoires, parfums et vêtements à Abidjan.">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:image" content="images/logo-sakura.png"><link rel="icon" href="images/logo-sakura.png">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"></head><body><main>
+<section class="page-head"><h1 class="script">La boutique</h1><p>Accessoires, parfums, vêtements et petites douceurs 🌸</p></section>
+<section class="section shop">
+  <div class="toolbar"><input id="search" type="search" placeholder="Rechercher un article…" aria-label="Rechercher">
+    <select id="sort" aria-label="Trier"><option value="">Nouveautés</option><option value="asc">Prix croissant</option><option value="desc">Prix décroissant</option></select></div>
+  <div class="pills" id="categories"></div><p class="muted" id="count"></p><div class="grid" id="product-grid"></div></section>
+</main>
+<form name="commande" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden><input name="form-name" value="commande"><input name="bot-field"><input name="nom"><input name="telephone"><input name="email"><input name="commune"><input name="adresse"><input name="note"><input name="associee"><input name="numero_commande"><input name="recapitulatif_commande"><input name="total"><input name="mode_paiement"><input name="note_livraison"></form>
+<script type="module" src="js/main.js"></script></body></html>
